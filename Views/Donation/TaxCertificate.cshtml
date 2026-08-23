@@ -1,0 +1,118 @@
+﻿@model APPR_PART_1_POE.Models.Donation
+
+@{
+    ViewData["Title"] = "Tax Certificate";
+}
+
+<section class="py-5">
+
+    <div class="container">
+
+        <div class="row justify-content-center">
+
+            <div class="col-lg-8">
+
+                <div class="card border-0 shadow-sm">
+
+                    <div class="card-body p-4 p-md-5">
+
+                        <div class="text-center mb-4">
+
+                            <p class="text-warning fw-bold">
+                                DONATION RECEIVED
+                            </p>
+
+                            <h1 class="fw-bold">
+                                Placeholder Tax Certificate
+                            </h1>
+
+                            <p class="text-muted">
+                                Thank you for supporting the Gift of the Givers
+                                Foundation.
+                            </p>
+
+                        </div>
+
+                        <hr />
+
+                        <div class="row mb-3">
+
+                            <div class="col-sm-6">
+                                <strong>Donation Amount:</strong>
+                            </div>
+
+                            <div class="col-sm-6">
+                                @Model.Amount.ToString("N2") @Model.Currency
+                            </div>
+
+                        </div>
+
+                        <div class="row mb-3">
+
+                            <div class="col-sm-6">
+                                <strong>Donation Type:</strong>
+                            </div>
+
+                            <div class="col-sm-6">
+                                @Model.DonationType
+                            </div>
+
+                        </div>
+
+                        <div class="row mb-3">
+
+                            <div class="col-sm-6">
+                                <strong>Donation Date:</strong>
+                            </div>
+
+                            <div class="col-sm-6">
+                                @Model.DonationDate.ToString("dd MMMM yyyy")
+                            </div>
+
+                        </div>
+
+                        <div class="row mb-4">
+
+                            <div class="col-sm-6">
+                                <strong>Donation Status:</strong>
+                            </div>
+
+                            <div class="col-sm-6">
+                                Prototype Donation Record
+                            </div>
+
+                        </div>
+
+                        <div class="alert alert-light border">
+
+                            <strong>Prototype Notice:</strong>
+                            This is a placeholder tax certificate generated for
+                            demonstration purposes. No real payment has been
+                            processed.
+
+                        </div>
+
+
+                        <div class="text-center">
+
+                            <a asp-controller="Home"
+                               asp-action="Index"
+                               class="btn btn-dark">
+
+                                Return Home
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>

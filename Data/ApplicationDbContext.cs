@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using APPR_PART_1_POE.Models;
+
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace APPR_PART_1_POE.Data
@@ -9,5 +11,10 @@ namespace APPR_PART_1_POE.Data
             : base(options)
         {
         }
+
+        // Add DbSet properties for the models 
+        public DbSet<Volunteer> Volunteers { get; set; }
+
+        public DbSet<Donation> Donations { get; set; }
     }
 }
