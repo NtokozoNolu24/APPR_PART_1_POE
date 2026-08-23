@@ -12,12 +12,21 @@ namespace APPR_PART_1_POE.Controllers
         {
             _logger = logger;
         }
-
+        //adding about and contact pages ot home controller
         public IActionResult Index()
         {
             return View();
         }
 
+        public IActionResult About()
+        {
+            return View();
+        }
+
+        public IActionResult Contact()
+        {
+            return View();
+        }
         public IActionResult Privacy()
         {
             return View();
