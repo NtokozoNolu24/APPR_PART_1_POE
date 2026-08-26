@@ -20,13 +20,28 @@ builder.Services.AddControllersWithViews();
 var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
-    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+    var services = scope.ServiceProvider;
 
-    await RoleInitializer.InitializeAsync(roleManager); // Call the role initializer to create roles
+    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+    var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
+
+    // Create the Employee and Donor roles if they don't exist
+    await RoleInitializer.InitializeAsync(roleManager);
+
+    // Find the test employee account using its email address
+    var employeeEmail = "employee@test.com";
+
+    var employeeUser = await userManager.FindByEmailAsync(employeeEmail);
+
+    if (employeeUser != null &&
+        !await userManager.IsInRoleAsync(employeeUser, "Employee"))
+    {
+        await userManager.AddToRoleAsync(employeeUser, "Employee");
+    }
 }
 
-    // Configure the HTTP request pipeline.
-    if (app.Environment.IsDevelopment())
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
     {
         app.UseMigrationsEndPoint();
     }

@@ -1,0 +1,95 @@
+﻿@{
+    ViewData["Title"] = "Employee Dashboard";
+}
+
+<section class="py-5">
+
+    <div class="container">
+
+        <div class="mb-5">
+
+            <p class="text-warning fw-bold">
+                EMPLOYEE PORTAL
+            </p>
+
+            <h1 class="fw-bold">
+                Employee Dashboard
+            </h1>
+
+            <p class="text-muted">
+                Manage relief operations and review volunteer registrations.
+            </p>
+
+        </div>
+
+
+        <div class="row g-4">
+
+            <!-- Relief Operations -->
+
+            <div class="col-md-6">
+
+                <div class="card border-0 shadow-sm h-100">
+
+                    <div class="card-body p-4">
+
+                        <h3 class="fw-bold">
+                            Relief Operations
+                        </h3>
+
+                        <p class="text-muted">
+                            View ongoing relief projects and post updates about
+                            humanitarian operations.
+                        </p>
+
+                        <a asp-controller="Relief"
+                           asp-action="Index"
+                           class="btn btn-dark">
+
+                            Manage Relief Operations
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Volunteers -->
+
+            <div class="col-md-6">
+
+                <div class="card border-0 shadow-sm h-100">
+
+                    <div class="card-body p-4">
+
+                        <h3 class="fw-bold">
+                            Volunteer Sign-Ups
+                        </h3>
+
+                        <p class="text-muted">
+                            @ViewBag.VolunteerCount volunteer registration(s)
+                            currently available for review.
+                        </p>
+
+                        <a asp-controller="Employee"
+                           asp-action="Volunteers"
+                           class="btn btn-dark">
+
+                            View Volunteers
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>

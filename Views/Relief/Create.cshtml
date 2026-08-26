@@ -1,0 +1,128 @@
+﻿@model APPR_PART_1_POE.Models.ReliefOperation
+
+@{
+    ViewData["Title"] = "Post Relief Update";
+}
+
+<section class="py-5">
+
+    <div class="container">
+
+        <div class="row justify-content-center">
+
+            <div class="col-lg-8">
+
+                <div class="mb-4">
+
+                    <p class="text-warning fw-bold">
+                        EMPLOYEE PORTAL
+                    </p>
+
+                    <h1 class="fw-bold">
+                        Post a Relief Operation Update
+                    </h1>
+
+                    <p class="text-muted">
+                        Share information about an ongoing relief project or humanitarian operation.
+                    </p>
+
+                </div>
+
+
+                <div class="card border-0 shadow-sm">
+
+                    <div class="card-body p-4 p-md-5">
+
+                        <form asp-action="Create" method="post">
+
+                            <div asp-validation-summary="ModelOnly"
+                                 class="text-danger mb-3">
+                            </div>
+
+
+                            <div class="mb-3">
+
+                                <label asp-for="Title"
+                                       class="form-label">
+                                </label>
+
+                                <input asp-for="Title"
+                                       class="form-control"
+                                       placeholder="For example: Flood Relief Operation" />
+
+                                <span asp-validation-for="Title"
+                                      class="text-danger">
+                                </span>
+
+                            </div>
+
+
+                            <div class="mb-3">
+
+                                <label asp-for="Location"
+                                       class="form-label">
+                                </label>
+
+                                <input asp-for="Location"
+                                       class="form-control"
+                                       placeholder="For example: KwaZulu-Natal" />
+
+                                <span asp-validation-for="Location"
+                                      class="text-danger">
+                                </span>
+
+                            </div>
+
+
+                            <div class="mb-4">
+
+                                <label asp-for="Update"
+                                       class="form-label">
+                                </label>
+
+                                <textarea asp-for="Update"
+                                          class="form-control"
+                                          rows="5"
+                                          placeholder="Provide an update about the relief operation">
+                                </textarea>
+
+                                <span asp-validation-for="Update"
+                                      class="text-danger">
+                                </span>
+
+                            </div>
+
+
+                            <div class="d-flex gap-2">
+
+                                <button type="submit"
+                                        class="btn btn-dark">
+                                    Post Update
+                                </button>
+
+                                <a asp-action="Index"
+                                   class="btn btn-outline-dark">
+                                    Cancel
+                                </a>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
