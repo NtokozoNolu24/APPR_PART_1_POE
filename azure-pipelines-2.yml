@@ -1,5 +1,5 @@
 trigger:
-- main
+- master
 
 pool:
   vmImage: 'ubuntu-latest'
@@ -8,19 +8,32 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
+
 - task: UseDotNet@2
   displayName: 'Install .NET 8 SDK'
   inputs:
     packageType: 'sdk'
     version: '8.x'
 
-- script: dotnet restore APPR_PART_1_POE.sln
+- script: |
+    dotnet --info
+  displayName: 'Check .NET SDK'
+
+- script: |
+    dotnet restore APPR_PART_1_POE.sln
   displayName: 'Restore NuGet packages'
 
-- script: dotnet build APPR_PART_1_POE.sln --configuration $(buildConfiguration) --no-restore
+- script: |
+    dotnet build APPR_PART_1_POE.sln \
+      --configuration $(buildConfiguration) \
+      --no-restore
   displayName: 'Build solution'
 
-- script: dotnet publish GiftoftheGivers.Functions/GiftoftheGivers.Functions.csproj --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/FunctionApp
+- script: |
+    dotnet publish GiftoftheGivers.Functions/GiftoftheGivers.Functions.csproj \
+      --configuration $(buildConfiguration) \
+      --no-restore \
+      --output $(Build.ArtifactStagingDirectory)/FunctionApp
   displayName: 'Publish Azure Function'
 
 - task: PublishBuildArtifacts@1
