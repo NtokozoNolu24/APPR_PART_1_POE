@@ -1,4 +1,5 @@
-﻿using APPR_PART_1_POE.Data;
+﻿using GiftOfTheGivers.Common;
+using APPR_PART_1_POE.Data;
 using APPR_PART_1_POE.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -22,6 +23,8 @@ namespace APPR_PART_1_POE.Controllers
             var operations = await _context.ReliefOperations
                 .OrderByDescending(r => r.DatePosted)
                 .ToListAsync();
+
+            ViewBag.ReliefStatusMessage = ReliefHelper.GetReliefStatus("approved");
 
             return View(operations);
         }
