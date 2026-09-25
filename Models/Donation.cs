@@ -7,7 +7,7 @@ namespace APPR_PART_1_POE.Models
         public int Id { get; set; }
 
         [Required]
-        [Range(1, double.MaxValue, ErrorMessage = "Please enter a valid donation amount.")]
+        [Range(1, double.MaxValue, ErrorMessage = "Please enter a valid donation amount to be able to donate.")]
         public decimal Amount { get; set; }
 
         [Required]
@@ -18,6 +18,6 @@ namespace APPR_PART_1_POE.Models
 
         public bool IsAnonymous { get; set; }
 
-        public DateTime DonationDate { get; set; } = DateTime.Now;
+        public DateTime DonationDate { get; set; } = DateTime.Now;// date and time of the donation
     }
 }

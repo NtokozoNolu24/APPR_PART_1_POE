@@ -6,8 +6,8 @@ namespace APPR_PART_1_POE.Models
     {
         public int Id { get; set; }
 
-        [Required] //this ensures that the Name field is required and cannot be left empty
-        [Display(Name = "Full Name")]
+        [Required] //this ensures that the Name field is required and cannot be left empty  to be ably i identify 
+        [Display(Name = "Full Names")]
         public string Name { get; set; } = string.Empty;
 
         [Required]

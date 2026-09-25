@@ -16,7 +16,7 @@ namespace GiftoftheGivers.Functions
 
         [Function("GenerateDonationReceipt")]
         public HttpResponseData Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post")]
+            [HttpTrigger(AuthorizationLevel.Function, "get", "post")]
             HttpRequestData req)
         {
             _logger.LogInformation("Donation receipt function processed a request.");
@@ -26,12 +26,14 @@ namespace GiftoftheGivers.Functions
             string? donorName = query["donorName"];
             string? amountText = query["amount"];
 
-            if (string.IsNullOrEmpty(donorName) || string.IsNullOrEmpty(amountText))
+            if (string.IsNullOrWhiteSpace(donorName) || string.IsNullOrWhiteSpace(amountText))
             {
                 var badRequest = req.CreateResponse(HttpStatusCode.BadRequest);
                 badRequest.WriteString("Please provide donorName and amount.");
                 return badRequest;
             }
+
+            donorName = donorName.Trim();
 
             if (!decimal.TryParse(amountText, out decimal amount))
             {
@@ -40,14 +42,22 @@ namespace GiftoftheGivers.Functions
                 return badRequest;
             }
 
-            string receiptNumber = $"DON-{DateTime.Now:yyyyMMddHHmmss}";
+            if (amount <= 0)
+            {
+                var badRequest = req.CreateResponse(HttpStatusCode.BadRequest);
+                badRequest.WriteString("Amount must be greater than zero.");
+                return badRequest;
+            }
+
+            var now = DateTimeOffset.UtcNow;
+            string receiptNumber = $"DON-{now:yyyyMMddHHmmss}-{Guid.NewGuid().ToString("N")[..6]}";
 
             var receipt = new
             {
                 ReceiptNumber = receiptNumber,
                 DonorName = donorName,
                 Amount = amount,
-                Date = DateTime.Now,
+                Date = now,
                 Message = "Thank you for supporting Gift of the Givers."
             };
 

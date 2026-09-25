@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using APPR_PART_1_POE.Services;
 using Microsoft.EntityFrameworkCore;
 
-var builder = WebApplication.CreateBuilder(args);
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
