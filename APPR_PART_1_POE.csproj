@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="GiftOfTheGivers.Common" Version="1.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.20" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.20" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.20" />
@@ -19,4 +20,9 @@
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
+	<ItemGroup>
+		<Compile Remove="GiftoftheGivers.Functions\**" />
+		<Content Remove="GiftoftheGivers.Functions\**" />
+		<None Remove="GiftoftheGivers.Functions\**" />
+	</ItemGroup>
 </Project>

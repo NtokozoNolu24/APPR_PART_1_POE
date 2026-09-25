@@ -1,7 +1,7 @@
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Functions.Worker;
+using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Logging;
+using System.Net;
 
 namespace GiftoftheGivers.Functions
 {
@@ -15,26 +15,29 @@ namespace GiftoftheGivers.Functions
         }
 
         [Function("GenerateDonationReceipt")]
-        public IActionResult Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post")] HttpRequest req)
+        public HttpResponseData Run(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post")]
+            HttpRequestData req)
         {
             _logger.LogInformation("Donation receipt function processed a request.");
 
-            string donorName = req.Query["donorName"];
-            string amountText = req.Query["amount"];
+            var query = System.Web.HttpUtility.ParseQueryString(req.Url.Query);
+
+            string? donorName = query["donorName"];
+            string? amountText = query["amount"];
 
             if (string.IsNullOrEmpty(donorName) || string.IsNullOrEmpty(amountText))
             {
-                return new BadRequestObjectResult(
-                    "Please provide donorName and amount."
-                );
+                var badRequest = req.CreateResponse(HttpStatusCode.BadRequest);
+                badRequest.WriteString("Please provide donorName and amount.");
+                return badRequest;
             }
 
             if (!decimal.TryParse(amountText, out decimal amount))
             {
-                return new BadRequestObjectResult(
-                    "Amount must be a valid number."
-                );
+                var badRequest = req.CreateResponse(HttpStatusCode.BadRequest);
+                badRequest.WriteString("Amount must be a valid number.");
+                return badRequest;
             }
 
             string receiptNumber = $"DON-{DateTime.Now:yyyyMMddHHmmss}";
@@ -48,7 +51,10 @@ namespace GiftoftheGivers.Functions
                 Message = "Thank you for supporting Gift of the Givers."
             };
 
-            return new OkObjectResult(receipt);
+            var response = req.CreateResponse(HttpStatusCode.OK);
+            response.WriteAsJsonAsync(receipt);
+
+            return response;
         }
     }
 }
